@@ -19,32 +19,5 @@ appDataSource.initialize().then(() => {
 })
 
 app.get('/', async (req, res) => {
-    console.log(req.body)
-    const processRepository = appDataSource.getRepository(Process)
-    const process = await processRepository.find({
-        where: { id: 1 },
-        relations: {
-            tasks: true
-        }
-    })
-    const taskRepository = appDataSource.getRepository(Task)
-    const task = await taskRepository.find()
-
-    const userRepository = appDataSource.getRepository(User)
-    const user = await userRepository.find({ 
-        relations: {
-            processes: true
-        }
-    })
-
-
-
-
-    const roleRepository = appDataSource.getRepository(Role)
-    const role = await roleRepository.find({
-        relations: {
-            users: true
-        }
-    })
-    res.send({ process })
+    res.send("Hello World!")
 })
