@@ -22,7 +22,7 @@ export default class Process {
     @Column()
     state!: string
 
-    @ManyToMany(() => User, user => user.processes)
+    @ManyToMany(() => User, user => user.processes, { cascade: true })
     @JoinTable({
     name: 'process_users_user',
     joinColumn: {
