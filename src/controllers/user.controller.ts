@@ -8,7 +8,7 @@ export default class UserController{
 
     public async getAllUsers(req: any, res: any) {
         try{
-            const users = await this.userServices.getAllUsers()
+            const users = await this.userServices.getAllUsers(req.body)
             res.status(200).send(users)
         }catch(error){
             console.error(error)
