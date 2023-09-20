@@ -5,6 +5,7 @@ import Task from "./infra/entities/task.entity";
 import User from "./infra/entities/user.entity";
 import Role from "./infra/entities/role.entity";
 import bodyParser from "body-parser";
+import { process as processRouter } from './routes/process.router';
 
 const app = Express()
 app.use(bodyParser.json())
@@ -21,3 +22,5 @@ appDataSource.initialize().then(() => {
 app.get('/', async (req, res) => {
     res.send("Hello World!")
 })
+
+app.use('/process', processRouter)
