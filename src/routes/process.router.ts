@@ -12,3 +12,7 @@ const controller = new ProcessController(service)
 process.post('/create', async (req, res) => {
     await controller.createProcess(req, res)
 })
+
+process.patch('/:id/update', async (req, res) => {
+    await controller.updateProcessInformations(req, res)
+})
