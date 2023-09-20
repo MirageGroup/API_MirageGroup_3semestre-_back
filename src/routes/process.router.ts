@@ -4,8 +4,6 @@ import ProcessServices from '../services/process.services';
 import appDataSource from '../infra/data-source';
 import ProcessController from '../controllers/process.controller';
 
-require('dotenv').config()
-
 export const process = Router()
 
 const service = new ProcessServices(appDataSource.getRepository(Process))

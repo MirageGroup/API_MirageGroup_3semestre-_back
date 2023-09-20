@@ -6,6 +6,7 @@ import User from "./infra/entities/user.entity";
 import Role from "./infra/entities/role.entity";
 import bodyParser from "body-parser";
 import { process as processRouter } from './routes/process.router';
+import { user as userRouter } from "./routes/user.router";
 
 const app = Express()
 app.use(bodyParser.json())
@@ -24,3 +25,4 @@ app.get('/', async (req, res) => {
 })
 
 app.use('/process', processRouter)
+app.use('/user', userRouter)
