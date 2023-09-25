@@ -7,12 +7,12 @@ import Role from "./infra/entities/role.entity";
 import bodyParser from "body-parser";
 import { process as processRouter } from './routes/process.router';
 import { user as userRouter } from "./routes/user.router";
-import cors from "cors"; // Import the cors middleware
+// import cors from "cors"; // Import the cors middleware
 
 const app = Express()
 app.use(bodyParser.json())
 require('dotenv').config()
-app.use(cors());
+// app.use(cors());
 
 app.listen(process.env.PORT, () => {
     console.log(`Server running on http://localhost:${process.env.PORT}`)

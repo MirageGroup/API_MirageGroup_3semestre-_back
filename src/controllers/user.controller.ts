@@ -15,4 +15,14 @@ export default class UserController{
             res.status(500).send({ message: "Internal server error, please try again later", error })
         }
     }
+
+    public async insertUser(req: any, res: any){
+        try{
+            const users = await this.userServices.insertUsers(req.body)
+            res.status(200).send(users)
+        }catch(error){
+            console.error(error)
+            res.status(500).send({message:"Internal server error, please try again later", error})
+        }
+    }
 }

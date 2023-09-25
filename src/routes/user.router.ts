@@ -12,3 +12,7 @@ const controller = new UserController(service)
 user.get('/getall', async (req, res) => {
     controller.getAllUsers(req, res)
 })
+
+user.post('/login', async (req,res) =>{
+    controller.insertUser(req, res)
+})

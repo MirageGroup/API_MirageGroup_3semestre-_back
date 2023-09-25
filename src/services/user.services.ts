@@ -11,4 +11,11 @@ export default class UserServices{
         const users = await this.userRepository.find(relations)
         return users
     }
+
+    public async insertUsers(userData: Partial<User>): Promise<User> {
+        const newUser = this.userRepository.create(userData); 
+        const insertedUser = await this.userRepository.save(newUser); 
+        return insertedUser;
+    }
+    
 }
