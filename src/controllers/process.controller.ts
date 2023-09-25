@@ -31,4 +31,16 @@ export default class ProcessController{
             res.status(500).send({ message: "Internal server error, please try again", error })
         }
     }
-}
+
+    public async getAllProcess(req: any, res: any){
+        try{
+            const process = await this.processServices.getAllProcess()
+            res.status(200).send(process)
+        }catch(error){
+            console.log(error)
+            res.status(500).send({ message: "Internal server error, please try again", error })
+        }
+
+        return process
+        }
+    }

@@ -16,3 +16,7 @@ process.post('/create', async (req, res) => {
 process.patch('/:id/update', async (req, res) => {
     await controller.updateProcessInformations(req, res)
 })
+
+process.get('/findall',async (req,res) => {
+    controller.getAllProcess(req, res)
+})

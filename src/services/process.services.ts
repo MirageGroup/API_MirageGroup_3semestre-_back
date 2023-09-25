@@ -16,4 +16,9 @@ export default class ProcessServices{
         const process = await this.processRepository.findOneBy({ id: id })
         return await this.processRepository.save({ ...process, ...updateProcessDto })
     }
+
+    public async getAllProcess(){
+        const process = await this.processRepository.find()
+        return process
+    }
 }
