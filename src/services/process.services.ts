@@ -12,13 +12,20 @@ export default class ProcessServices{
         return await this.processRepository.save(process)
     }
 
-    public async updateProcessInformations(id: any, updateProcessDto: any) {
+    public async updateProcessInformations(id: any, updateProcessDto: any): Promise<Process | null> {
         const process = await this.processRepository.findOneBy({ id: id })
+        if(process === null) return process
         return await this.processRepository.save({ ...process, ...updateProcessDto })
     }
 
-    public async getAllProcess(){
+    public async getAllProcess(): Promise<Array<Process>>{
         const process = await this.processRepository.find()
         return process
+    }
+
+    public async softDeleteProcess(id: any) {
+        const process = await this.processRepository.findOneBy({ id: id })
+        if(process === null) return process
+        await this.processRepository.softDelete(id)
     }
 }

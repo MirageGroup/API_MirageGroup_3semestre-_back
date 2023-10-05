@@ -20,3 +20,7 @@ process.patch('/:id/update', async (req, res) => {
 process.get('/findall',async (req,res) => {
     controller.getAllProcess(req, res)
 })
+
+process.delete('/:id/delete', async (req, res) => {
+    controller.softDeleteProcess(req, res)
+})

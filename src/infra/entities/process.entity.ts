@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import User from "./user.entity";
 import Task from "./task.entity";
 
@@ -21,35 +21,38 @@ export default class Process {
 
     @Column('date')
     deadline!: Date
-
+    
     @Column()
     state!: string
-
+    
     @ManyToMany(() => User, user => user.processes, { cascade: true })
     @JoinTable({
-    name: 'process_users_user',
-    joinColumn: {
-      name: 'id_process',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'id_user',
-      referencedColumnName: 'id',
-    },
-     })
+        name: 'process_users_user',
+        joinColumn: {
+            name: 'id_process',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'id_user',
+            referencedColumnName: 'id',
+        },
+    })
     users!: User[];
 
     @ManyToMany(() => Task)
     @JoinTable({
-      name: 'process_tasks_task',
-      joinColumn: {
-        name: 'id_process',
-        referencedColumnName: 'id',
-      },
-      inverseJoinColumn: {
-        name: 'id_task',
-        referencedColumnName: 'id',
-      },
+        name: 'process_tasks_task',
+        joinColumn: {
+            name: 'id_process',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'id_task',
+            referencedColumnName: 'id',
+        },
     })
     tasks!: Task[];
+    
+    @DeleteDateColumn()
+    deleted_at!: Date
 }

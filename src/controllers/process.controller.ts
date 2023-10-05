@@ -9,23 +9,24 @@ export default class ProcessController{
         private readonly processServices: ProcessServices
     ){}
     
-    public async createProcess(req: any, res: any) {
+    public async createProcess(req: any, res: any){
         const { name, description, deadline } = req.body
         if( name == null || description == null || deadline == null) return res.sendStatus(400)
         try{
-            const process: Process = await this.processServices.createProcess(req.body)
-            res.status(201).send(process)
+            const response: Process = await this.processServices.createProcess(req.body)
+            res.status(201).send(response)
         }catch(error){
             console.error(error)
             res.status(500).send({ message: "Internal server error, please try again", error })
         }
     }
 
-    public async updateProcessInformations(req: any, res: any) {
+    public async updateProcessInformations(req: any, res: any){
         if(Object.keys(req.body).length === 0) return res.sendStatus(400)
         try{
-            const process = await this.processServices.updateProcessInformations(req.params.id, req.body)
-            res.status(200).send(process)
+            const response: Process | null = await this.processServices.updateProcessInformations(req.params.id, req.body)
+            if(response === null) return res.sendStatus(400)
+            res.status(200).send(response)
         }catch(error){
             console.log(error)
             res.status(500).send({ message: "Internal server error, please try again", error })
@@ -34,13 +35,22 @@ export default class ProcessController{
 
     public async getAllProcess(req: any, res: any){
         try{
-            const process = await this.processServices.getAllProcess()
-            res.status(200).send(process)
+            const response: Array<Process> = await this.processServices.getAllProcess()
+            res.status(200).send(response)
         }catch(error){
             console.log(error)
             res.status(500).send({ message: "Internal server error, please try again", error })
         }
+    }
 
-        return process
+    public async softDeleteProcess(req: any, res: any){
+        try{
+            const response = await this.processServices.softDeleteProcess(req.params.id)
+            if(response === null) return res.sendStatus(400)
+            res.sendStatus(200)
+        }catch(error){
+            console.log(error)
+            res.status(500).send({ message: "Internal server error, please try again", error })
         }
     }
+}
