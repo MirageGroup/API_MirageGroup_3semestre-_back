@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import User from "./user.entity";
 import Task from "./task.entity";
 
@@ -13,12 +13,14 @@ export default class Process {
     @Column()
     description!: string
 
+    @CreateDateColumn()
+    created_at!: Date
 
-    @Column('datetime')
-    date_created!: Date
+    @UpdateDateColumn()
+    updated_at!: Date
 
-    @Column('datetime')
-    date_finish!: Date
+    @Column('date')
+    deadline!: Date
 
     @Column()
     state!: string

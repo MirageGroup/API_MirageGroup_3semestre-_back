@@ -10,8 +10,8 @@ export default class ProcessController{
     ){}
     
     public async createProcess(req: any, res: any) {
-        const { name, description, date_created, date_finish } = req.body
-        if( name == null || description == null || date_created == null || date_finish == null) return res.sendStatus(400)
+        const { name, description, deadline } = req.body
+        if( name == null || description == null || deadline == null) return res.sendStatus(400)
         try{
             const process: Process = await this.processServices.createProcess(req.body)
             res.status(201).send(process)
