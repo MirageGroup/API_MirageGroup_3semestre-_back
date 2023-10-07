@@ -39,7 +39,7 @@ export default class Process {
     })
     users!: User[];
 
-    @ManyToMany(() => Task)
+    @ManyToMany(() => Task, { cascade: true })
     @JoinTable({
         name: 'process_tasks_task',
         joinColumn: {

@@ -22,7 +22,7 @@ export default class ProcessController{
     }
 
     public async updateProcessInformations(req: any, res: any){
-        if(Object.keys(req.body).length === 0) return res.sendStatus(400)
+        if(Object.keys(req.body).length === 0) return res.sendStatus(404)
         try{
             const response: Process | null = await this.processServices.updateProcessInformations(req.params.id, req.body)
             if(response === null) return res.sendStatus(400)
@@ -46,7 +46,7 @@ export default class ProcessController{
     public async softDeleteProcess(req: any, res: any){
         try{
             const response = await this.processServices.softDeleteProcess(req.params.id)
-            if(response === null) return res.sendStatus(400)
+            if(response === null) return res.sendStatus(404)
             res.sendStatus(200)
         }catch(error){
             console.log(error)
