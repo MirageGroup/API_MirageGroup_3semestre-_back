@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import User from "./user.entity";
 import Process from "./process.entity";
 
@@ -41,4 +41,7 @@ export default class Task {
         }
     })
     users!: User[]
+
+    @DeleteDateColumn()
+    deleted_at!: Date
 }
