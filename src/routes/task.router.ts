@@ -19,3 +19,7 @@ task.post('/:process_id/create', async (req, res) => {
 task.patch('/:process_id/:task_id/update', async (req, res) => {
     await controller.updateTaskInformations(req, res)
 })
+
+task.get('/:process_id/getall', async (req, res) => {
+    await controller.getAllTasks(req, res)
+})

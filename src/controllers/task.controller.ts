@@ -36,4 +36,16 @@ export default class TaskController{
             res.status(500).send({ message: "Internal server error, please try again", error }) 
         }
     }
+
+    public async getAllTasks(req: any, res: any){
+        try{
+            const process = await this.processServices.getProcessById(req.params.process_id)
+            if(process == null) return res.sendStatus(404)
+            const tasks = process.tasks
+            res.status(200).send(tasks)
+        }catch(error){
+            console.log(error)
+            res.status(500).send({ message: "Internal server error, please try again", error }) 
+        }
+    }
 }
