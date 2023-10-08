@@ -13,4 +13,12 @@ export default class TaskServices{
         process.tasks.push(task)
         return await this.processRepository.save(process)
     }
+
+    public async updateTaskInformations(task: Task, updateTaskDto: any): Promise<Task | null> {
+        return await this.taskRepository.save({ ...task, ...updateTaskDto })
+    }
+
+    public async getTaskById(id: any): Promise<Task | null>{
+        return await this.taskRepository.findOneBy({ id: id })
+    }
 }

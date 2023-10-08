@@ -32,9 +32,13 @@ export default class ProcessServices{
             },
             relations: {
                 tasks: true
-            } 
+            }
         })
         return process
+    }
+
+    public async countProcessById(id: any) {
+        return await this.processRepository.count({where: { id: id }})
     }
 
     public async softDeleteProcess(id: any) {

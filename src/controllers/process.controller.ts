@@ -22,7 +22,7 @@ export default class ProcessController{
     }
 
     public async updateProcessInformations(req: any, res: any){
-        if(Object.keys(req.body).length === 0) return res.sendStatus(404)
+        if(Object.keys(req.body).length === 0) return res.sendStatus(400)
         try{
             const response: Process | null = await this.processServices.updateProcessInformations(req.params.id, req.body)
             if(response === null) return res.sendStatus(400)

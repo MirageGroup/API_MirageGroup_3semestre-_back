@@ -15,3 +15,7 @@ const controller = new TaskController(taskService, processService)
 task.post('/:process_id/create', async (req, res) => {
     await controller.createTask(req, res)
 })
+
+task.patch('/:process_id/:task_id/update', async (req, res) => {
+    await controller.updateTaskInformations(req, res)
+})
