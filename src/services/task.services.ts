@@ -21,4 +21,8 @@ export default class TaskServices{
     public async getTaskById(id: any): Promise<Task | null>{
         return await this.taskRepository.findOneBy({ id: id })
     }
+
+    public async softDeleteTask(id: any){
+        return await this.taskRepository.softDelete(id)
+    }
 }

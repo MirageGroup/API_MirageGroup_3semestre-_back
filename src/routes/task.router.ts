@@ -23,3 +23,7 @@ task.patch('/:process_id/:task_id/update', async (req, res) => {
 task.get('/:process_id/getall', async (req, res) => {
     await controller.getAllTasks(req, res)
 })
+
+task.delete('/:task_id/delete', async (req, res) => {
+    await controller.softDeleteTasks(req, res)
+})

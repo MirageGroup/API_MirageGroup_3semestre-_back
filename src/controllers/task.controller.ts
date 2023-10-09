@@ -48,4 +48,14 @@ export default class TaskController{
             res.status(500).send({ message: "Internal server error, please try again", error }) 
         }
     }
+
+    public async softDeleteTasks(req: any, res: any){
+        try{
+            await this.taskServices.softDeleteTask(req.params.task_id)
+            res.sendStatus(200)
+        }catch(error){
+            console.log(error)
+            res.status(500).send({ message: "Internal server error, please try again", error }) 
+        }
+    }
 }
