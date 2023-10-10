@@ -8,6 +8,7 @@ import bodyParser from "body-parser";
 import { process as processRouter } from './routes/process.router';
 import { user as userRouter } from "./routes/user.router";
 import { task as taskRouter } from "./routes/task.router"
+import { iso as isoRouter } from "./routes/iso.router"
 import cors from "cors"; // Import the cors middleware
 
 const app = Express()
@@ -30,3 +31,4 @@ app.get('/', async (req, res) => {
 app.use('/process', processRouter)
 app.use('/user', userRouter)
 app.use('/task', taskRouter)
+app.use('/iso', isoRouter)
