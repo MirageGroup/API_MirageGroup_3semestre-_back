@@ -9,3 +9,6 @@ export const iso = Router()
 const service = new IsoServices(appDataSource.getRepository(Iso))
 const controller = new IsoController(service)
 
+iso.post('/create', async (req, res) => {
+    await controller.createIso(req, res)
+})

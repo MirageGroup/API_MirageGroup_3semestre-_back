@@ -12,7 +12,7 @@ export default class Iso {
     @Column()
     description!: string
 
-    @ManyToMany(() => Process, process => process.isos, { cascade: true })
+    @ManyToMany(() => Process, process => process.isos)
     @JoinTable({
         name: 'process_isos_iso',
         joinColumn: {
