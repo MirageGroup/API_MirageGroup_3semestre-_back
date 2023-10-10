@@ -12,3 +12,6 @@ const controller = new IsoController(service)
 iso.post('/create', async (req, res) => {
     await controller.createIso(req, res)
 })
+iso.get('/getall', async (req, res) => {
+    await controller.getAllIsos(req, res)
+})

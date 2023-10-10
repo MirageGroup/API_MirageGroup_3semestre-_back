@@ -9,4 +9,9 @@ export default class IsoServices{
     public async createIso(iso: any){
         return this.isoRepository.save(iso)
     }
+
+
+    public async getAllIsos(): Promise<Array<Iso>>{ 
+        return await this.isoRepository.find()
+    }
 }
