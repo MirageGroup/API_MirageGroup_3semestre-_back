@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 require('dotenv').config()
 app.use(cors());
 
-const s3Client = new S3Client({ region: 'us-east-1' })
+const s3Client = new S3Client({ region: process.env.AWS_REGION })
 
 const upload = multer({
     storage: multer.memoryStorage(),
