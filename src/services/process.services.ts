@@ -1,8 +1,5 @@
 import { Repository } from 'typeorm';
-import appDataSource from '../infra/data-source';
 import Process from '../infra/entities/process.entity';
-import { task } from '../routes/task.router';
-import Task from '../infra/entities/task.entity';
 
 export default class ProcessServices{
 

@@ -1,16 +1,11 @@
 import Express from "express";
-import { PutObjectCommand, GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import appDataSource from "./infra/data-source";
-import Process from "./infra/entities/process.entity";
-import Task from "./infra/entities/task.entity";
-import User from "./infra/entities/user.entity";
-import Role from "./infra/entities/role.entity";
 import bodyParser from "body-parser";
 import { process as processRouter } from './routes/process.router';
 import { user as userRouter } from "./routes/user.router";
 import { task as taskRouter } from "./routes/task.router"
 import { iso as isoRouter } from "./routes/iso.router"
-import cors from "cors"; // Import the cors middleware
+import cors from "cors";
 
 const app = Express()
 app.use(bodyParser.json())

@@ -1,5 +1,3 @@
-import { DataSource, Repository } from "typeorm"
-import appDataSource from "../infra/data-source"
 import Process from "../infra/entities/process.entity"
 import ProcessServices from '../services/process.services'
 
