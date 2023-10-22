@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import User from "./user.entity";
 import Process from "./process.entity";
+import Evidence from './evidence.entity';
 
 @Entity()
 export default class Task {
@@ -27,6 +28,9 @@ export default class Task {
 
     @ManyToMany(() => Process)
     processes!: Process[];
+
+    @OneToMany(() => Evidence, evidence => evidence.task)
+    evidences!: Evidence[]
 
     @ManyToMany(() => User, user => user.tasks)
     @JoinTable({

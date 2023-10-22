@@ -58,4 +58,20 @@ export default class TaskController{
             res.status(500).send({ message: "Internal server error, please try again", error }) 
         }
     }
+
+    public async addEvidence(req: any, res: any){
+        if(!req.file?.originalname) res.sendStatus(400)
+        const process = await this.processServices.countProcessById(req.params.process_id)
+        if(process == 0) return res.sendStatus(404)
+        let task = await this.taskServices.getTaskById(req.params.task_id)
+        if(task == null) return res.sendStatus(404)
+        try{
+            await this.taskServices.addEvidence(req, task).then((response) => {
+                res.send(response)
+            })
+        }catch(error){
+            console.log(error)
+            res.status(500).send({ message: "Internal server error, please try again", error }) 
+        }
+    }
 }
