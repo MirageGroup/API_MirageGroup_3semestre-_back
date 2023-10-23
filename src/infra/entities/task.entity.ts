@@ -26,6 +26,9 @@ export default class Task {
     @Column()
     state!: string
 
+    @Column()
+    priority!: string
+
     @ManyToMany(() => Process)
     processes!: Process[];
 
