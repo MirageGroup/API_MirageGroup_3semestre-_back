@@ -29,6 +29,9 @@ export default class Task {
     @Column()
     priority!: string
 
+    @Column()
+    list_index!: number
+
     @ManyToMany(() => Process)
     processes!: Process[];
 
