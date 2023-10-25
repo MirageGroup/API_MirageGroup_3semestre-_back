@@ -18,7 +18,12 @@ export default class ProcessServices{
     }
 
     public async getAllProcess(): Promise<Array<Process>>{
-        const process = await this.processRepository.find({relations: {tasks:true}})
+        const process = await this.processRepository.find({
+            relations: {
+                tasks:true,
+                users: true
+            }
+        })
         return process
     }
 
