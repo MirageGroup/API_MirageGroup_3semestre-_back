@@ -13,6 +13,6 @@ user.get('/getall', async (req, res) => {
     controller.getAllUsers(req, res)
 })
 
-user.post('/login', async (req,res) =>{
-    controller.insertUser(req, res)
+user.post('/create', async (req,res) =>{
+    controller.createUser(req, res)
 })

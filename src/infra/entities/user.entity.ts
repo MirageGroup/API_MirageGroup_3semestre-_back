@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import Role from "./role.entity";
 import Process from "./process.entity";
 import Task from "./task.entity";
@@ -11,7 +11,7 @@ export default class User {
     @Column()
     name!: string
 
-    @Column()
+    @Column({ unique: true })
     email!: string
 
     @Column()

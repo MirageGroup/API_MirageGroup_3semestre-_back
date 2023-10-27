@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import UserServices from "../services/user.services";
 
 export default class UserController{
@@ -16,13 +17,17 @@ export default class UserController{
         }
     }
 
-    public async insertUser(req: any, res: any){
+    public async createUser(req: Request, res: Response){
+        const { name, email, password } = req.body
+        if(name == null || email == null || password == null) return res.sendStatus(400)
         try{
-            const users = await this.userServices.insertUsers(req.body)
-            res.status(200).send(users)
+            if(await this.userServices.getUserByEmail(email)) return res.sendStatus(409)
+            const user = await this.userServices.createUser(req.body)
+            return res.status(201).send(user)
         }catch(error){
             console.error(error)
-            res.status(500).send({message:"Internal server error, please try again later", error})
+            res.status(500).send({ message: "Internal server error, please try again later", error })
         }
     }
+
 }

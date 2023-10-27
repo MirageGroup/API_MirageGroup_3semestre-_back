@@ -28,6 +28,8 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.14"
+    "@types/bcrypt": "^5.0.1",
+    "@types/cors": "^2.8.14",
+    "bcrypt": "^5.1.1"
   }
 }
