@@ -17,9 +17,11 @@ export default class UserServices{
         return await this.userRepository.findOneBy({ email: email })
     }
 
-    public async createUser(user: User): Promise<User> {
+    public async createUser(user: User) {
         user.password = await bcrypt.hash(user.password, 10)
-        return await this.userRepository.save(user)
+        const newUser = await this.userRepository.save(user)
+        const {password: _, ...newwUser} = newUser
+        return newwUser
     }
     
 }
