@@ -20,7 +20,7 @@ export default class UserController{
         }
     }
 
-    public async userLoginValidation(req: Request, res: Response){
+    public async userLogin(req: Request, res: Response){
         const { email, password } = req.body
         if(email == null || password == null) return res.sendStatus(400)
         const user = await this.userServices.getUserByEmail(email)
@@ -30,8 +30,12 @@ export default class UserController{
             if(!login){
                 return res.sendStatus(400)
             }else{
-                const token = await this.userServices.userValidation(user)
-                return res.send(token)
+                const login = await this.userServices.userValidation(user)
+                return res.cookie("access-token", login.token, {
+                    httpOnly: true
+                })
+                .status(200)
+                .send({ message: "Logado com sucexo" })
             }
         }catch(error){
             console.error(error)

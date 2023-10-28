@@ -15,7 +15,7 @@ user.post('/create', async (req,res) =>{
 })
 
 user.post('/login', async (req, res) => {
-    controller.userLoginValidation(req, res)
+    await controller.userLogin(req, res)
 })
 
 user.get('/getprofile', auth, async (req, res) => {
