@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import UserServices from "../services/user.services";
 
 export default class UserController{
@@ -6,23 +7,43 @@ export default class UserController{
         private readonly userServices: UserServices
     ){}
 
-    public async getAllUsers(req: any, res: any) {
+    public async createUser(req: Request, res: Response){
+        const { name, email, password } = req.body
+        if(name == null || email == null || password == null) return res.sendStatus(400)
         try{
-            const users = await this.userServices.getAllUsers(req.body)
-            res.status(200).send(users)
+            if(await this.userServices.getUserByEmail(email)) return res.sendStatus(409)
+            const user = await this.userServices.createUser(req.body)
+            return res.status(201).send(user)
         }catch(error){
             console.error(error)
-            res.status(500).send({ message: "Internal server error, please try again later", error })
+            return res.status(500).send({ message: "Internal server error, please try again later", error })
         }
     }
 
-    public async insertUser(req: any, res: any){
+    public async userLogin(req: Request, res: Response){
+        const { email, password } = req.body
+        if(email == null || password == null) return res.sendStatus(400)
+        const user = await this.userServices.getUserByEmail(email)
+        if(!user) return res.sendStatus(404)
         try{
-            const users = await this.userServices.insertUsers(req.body)
-            res.status(200).send(users)
+            const login = await this.userServices.userLogin({ email, password }, user)
+            if(!login){
+                return res.sendStatus(400)
+            }else{
+                const login = await this.userServices.userValidation(user)
+                return res.cookie("access-token", login.token, {
+                    httpOnly: true
+                })
+                .status(200)
+                .send({ message: "Logado com sucexo" })
+            }
         }catch(error){
             console.error(error)
-            res.status(500).send({message:"Internal server error, please try again later", error})
+            return res.status(500).send({ message: "Internal server error, please try again later", error })
         }
+    }
+
+    public async getUserProfile(req: Request, res: Response) {
+        return res.send(req.user)       
     }
 }

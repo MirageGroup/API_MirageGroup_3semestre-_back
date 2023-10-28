@@ -1,16 +1,21 @@
-import Express from "express";
+import Express, { NextFunction, Request, Response } from "express";
 import appDataSource from "./infra/data-source";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import { process as processRouter } from './routes/process.router';
 import { user as userRouter } from "./routes/user.router";
 import { task as taskRouter } from "./routes/task.router"
 import { iso as isoRouter } from "./routes/iso.router"
-import cors from "cors";
 
 const app = Express()
-app.use(bodyParser.json())
 require('dotenv').config()
+app.use(bodyParser.json())
 app.use(cors());
+app.use(cookieParser())
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    
+})
 
 app.listen(process.env.PORT, () => {
     console.log(`Server running on http://localhost:${process.env.PORT}`)
