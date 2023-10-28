@@ -4,6 +4,10 @@ import jwt from 'jsonwebtoken';
 import User from "../infra/entities/user.entity";
 import { user } from '../routes/user.router';
 
+type JwtPayload = {
+    userId: number
+}
+
 export default class UserServices{
 
     public constructor(
@@ -12,6 +16,10 @@ export default class UserServices{
 
     public async getUserByEmail(email: string): Promise<User|null>{
         return await this.userRepository.findOneBy({ email: email })
+    }
+
+    public async getUserById(id: number): Promise<User|null>{
+        return await this.userRepository.findOneBy({ id: id })
     }
 
     public async createUser(user: User) {
@@ -33,7 +41,12 @@ export default class UserServices{
         {
             expiresIn: '8h',
         })
-        return token
+
+        const { password: _, ...userLogin } = user
+
+        return {
+            user: userLogin,
+            token: token
+        }
     }
-    
 }

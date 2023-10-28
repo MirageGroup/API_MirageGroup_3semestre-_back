@@ -16,7 +16,7 @@ export default class UserController{
             return res.status(201).send(user)
         }catch(error){
             console.error(error)
-            res.status(500).send({ message: "Internal server error, please try again later", error })
+            return res.status(500).send({ message: "Internal server error, please try again later", error })
         }
     }
 
@@ -28,15 +28,18 @@ export default class UserController{
         try{
             const login = await this.userServices.userLogin({ email, password }, user)
             if(!login){
-                res.sendStatus(400)
+                return res.sendStatus(400)
             }else{
                 const token = await this.userServices.userValidation(user)
-                res.send(token)
+                return res.send(token)
             }
         }catch(error){
             console.error(error)
-            res.status(500).send({ message: "Internal server error, please try again later", error })
+            return res.status(500).send({ message: "Internal server error, please try again later", error })
         }
     }
 
+    public async getUserProfile(req: Request, res: Response) {
+        return res.send(req.user)       
+    }
 }
