@@ -31,11 +31,8 @@ export default class UserController{
                 return res.sendStatus(400)
             }else{
                 const login = await this.userServices.userValidation(user)
-                return res.cookie("access-token", login.token, {
-                    httpOnly: true
-                })
-                .status(200)
-                .send({ message: "Logado com sucexo" })
+                return res.status(200).cookie("access_token", login.token, {
+                }).send()
             }
         }catch(error){
             console.error(error)

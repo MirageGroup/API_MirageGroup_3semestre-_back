@@ -9,26 +9,29 @@ type JwtPayload = {
 }
 
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
-    const { authorization } = req.headers;
-    try {
-        if (!authorization) {
-            throw new Error("Unauthorized");
-        }
+    const { authorization } = req.headers
+    if (!authorization) {
+        res.status(401).send({ message: "Não ta pegando o token" })
+        return
+    }
 
-        const token = authorization.split(' ')[1];
+    const token = authorization.split(' ')[1];
+    try{
         const { userId } = jwt.verify(token, process.env.SECRET_KEY ?? '') as JwtPayload;
-
+        
         const service = new UserServices(appDataSource.getRepository(User));
         const user = await service.getUserById(userId);
-
+        
         if (!user) {
-            throw new Error("Unauthorized");
+            res.sendStatus(401)
+            return
         }
-
+        
         const { password: _, ...loggedUser } = user;
         req.user = loggedUser;
         next();
-    } catch (error) {
-        next(error);
+    }catch(error){
+        res.sendStatus(500)
+        return 
     }
 };

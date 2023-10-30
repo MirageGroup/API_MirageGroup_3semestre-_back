@@ -11,10 +11,13 @@ import { iso as isoRouter } from "./routes/iso.router"
 const app = Express()
 require('dotenv').config()
 app.use(bodyParser.json())
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 app.use(cookieParser())
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    
+
 })
 
 app.listen(process.env.PORT, () => {
