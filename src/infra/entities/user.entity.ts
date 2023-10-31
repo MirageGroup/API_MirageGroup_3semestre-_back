@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import Role from "./role.entity";
 import Process from "./process.entity";
 import Task from "./task.entity";
@@ -47,4 +47,13 @@ export default class User {
       }
     })
     tasks!: Task[];
+
+    @CreateDateColumn()
+    created_at!: Date
+
+    @UpdateDateColumn()
+    updated_at!: Date
+
+    @DeleteDateColumn()
+    deleted_at!: Date
 }
