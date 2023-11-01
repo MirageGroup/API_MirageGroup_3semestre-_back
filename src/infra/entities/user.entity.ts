@@ -17,7 +17,7 @@ export default class User {
     @Column()
     password!: string
 
-    @ManyToOne(() => Role, role => role.users)
+    @ManyToOne(() => Role, role => role.users, { cascade: true })
     role!: Role;
 
     @ManyToMany(() => Process, process => process.users)

@@ -27,7 +27,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
             return
         }
         
-        const { password: _, ...loggedUser } = user;
+        const { password: _, created_at: __, updated_at: ___, deleted_at: ____, ...loggedUser } = user;
         req.user = loggedUser;
         next();
     }catch(error){

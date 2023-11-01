@@ -19,13 +19,21 @@ export default class UserServices{
     }
 
     public async getUserById(id: number): Promise<User|null>{
-        return await this.userRepository.findOneBy({ id: id })
+        return await this.userRepository.findOne(
+            { 
+                where: {
+                    id: id
+                },
+                relations: {
+                    role: true
+                } 
+            })
     }
 
     public async createUser(user: User) {
         user.password = await bcrypt.hash(user.password, 10)
         const newUser = await this.userRepository.save(user)
-        const {password: _, ...newwUser} = newUser
+        const {password: _, created_at: __, updated_at: ___, deleted_at: ____, ...newwUser} = newUser
         return newwUser
     }
 
@@ -42,7 +50,7 @@ export default class UserServices{
             expiresIn: '8h',
         })
 
-        const { password: _, ...userLogin } = user
+        const { password: _, created_at: __, updated_at: ___, deleted_at: ____,  ...userLogin } = user
 
         return {
             user: userLogin,
