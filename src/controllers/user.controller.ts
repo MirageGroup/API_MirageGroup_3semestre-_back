@@ -9,7 +9,7 @@ export default class UserController{
 
     public async createUser(req: Request, res: Response){
         const { name, email, password, role } = req.body
-        if(name == null || email == null || password == null || role == null) return res.send("você esqueceu das informações animal")
+        if(name == null || email == null || password == null || role == null) return res.sendStatus(400)
         try{
             if(await this.userServices.getUserByEmail(email)) return res.sendStatus(409)
             const user = await this.userServices.createUser(req.body)
@@ -42,5 +42,10 @@ export default class UserController{
 
     public async getUserProfile(req: Request, res: Response) {
         return res.send(req.user)       
+    }
+
+    public async fetchUsers(req: Request, res: Response) {
+        const users = await this.userServices.fetchUsers()
+        return res.status(200).send(users)
     }
 }

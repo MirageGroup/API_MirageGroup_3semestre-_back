@@ -21,3 +21,7 @@ user.post('/login', async (req, res) => {
 user.get('/getprofile', auth, async (req, res) => {
     controller.getUserProfile(req, res)
 })
+
+user.get('/fetchall', async (req, res) => {
+    controller.fetchUsers(req, res)
+})
