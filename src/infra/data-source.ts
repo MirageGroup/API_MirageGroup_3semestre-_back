@@ -1,13 +1,14 @@
 import { DataSource } from "typeorm";
+import * as dotenv from 'dotenv'; // Importe o módulo dotenv
 
-require('dotenv').config()
+dotenv.config();
 
-const DB_TYPE: any = process.env.DB_TYPE
-const DB_HOST: any = process.env.DB_HOST
-const DB_PORT: any = process.env.DB_PORT
-const DB_USERNAME: any = process.env.DB_USERNAME
-const DB_PASSWORD: any = process.env.DB_PASSWORD
-const DB_NAME: any = process.env.DB_NAME
+const DB_TYPE: any = process.env.DB_TYPE;
+const DB_HOST: any = process.env.DB_HOST;
+const DB_PORT: any = process.env.DB_PORT;
+const DB_USERNAME: any = process.env.DB_USERNAME;
+const DB_PASSWORD: any = process.env.DB_PASSWORD;
+const DB_NAME: any = process.env.DB_NAME;
 
 const appDataSource = new DataSource({
     type: DB_TYPE,
@@ -17,7 +18,8 @@ const appDataSource = new DataSource({
     password: DB_PASSWORD,
     database: DB_NAME,
     entities: [`${__dirname}/entities/*.{ts,js}`],
+    migrations: [`${__dirname}/migrations/*.{ts,js}`],
     synchronize: true
-})
+});
 
-export default appDataSource
+export default appDataSource;

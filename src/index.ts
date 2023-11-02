@@ -20,12 +20,11 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 })
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server running on http://localhost:${process.env.PORT}`)
-})
-
 appDataSource.initialize().then(() => {
     console.log("Database initialized succesfully")
+    app.listen(process.env.PORT, () => {
+        console.log(`Server running on http://localhost:${process.env.PORT}`)
+    })
 })
 
 app.get('/', async (req, res) => {
