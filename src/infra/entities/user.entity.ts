@@ -15,6 +15,12 @@ export default class User {
     email!: string
 
     @Column()
+    phone!: string
+
+    @Column()
+    cpf!: string
+
+    @Column()
     password!: string
 
     @ManyToOne(() => Role, role => role.users, { cascade: true })

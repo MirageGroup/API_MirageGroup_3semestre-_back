@@ -8,8 +8,8 @@ export default class UserController{
     ){}
 
     public async createUser(req: Request, res: Response){
-        const { name, email, password, role } = req.body
-        if(name == null || email == null || password == null || role == null) return res.sendStatus(400)
+        const { name, email, phone, cpf, password, role } = req.body
+        if(name == null || email == null ||  phone == null || cpf == null || password == null || role == null) return res.sendStatus(400)
         try{
             if(await this.userServices.getUserByEmail(email)) return res.sendStatus(409)
             const user = await this.userServices.createUser(req.body)
