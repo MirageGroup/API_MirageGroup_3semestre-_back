@@ -12,7 +12,7 @@ export class Migrations1699116149263 implements MigrationInterface {
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(
-            `DELETE FROM user WHERE name = "Usuário"`
+            `DELETE FROM user WHERE email = "usuario@email.com"`
         )
     }
 

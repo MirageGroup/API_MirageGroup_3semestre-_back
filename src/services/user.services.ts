@@ -67,7 +67,8 @@ export default class UserServices {
                 'user.email',
                 'user.phone',
                 'user.cpf',
-                'role.name'
+                'role.name',
+                'role.id'
             ])
             .getMany()
     }

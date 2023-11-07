@@ -8,8 +8,8 @@ export default class ProcessController{
     ){}
     
     public async createProcess(req: any, res: any){
-        const { name, description, deadline } = req.body
-        if( name == null || description == null || deadline == null) return res.sendStatus(400)
+        const { name, description, deadline, users } = req.body
+        if( name == null || description == null || deadline == null || users == null) return res.sendStatus(400)
         try{
             const response: Process = await this.processServices.createProcess(req.body)
             res.status(201).send(response)

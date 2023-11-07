@@ -11,7 +11,7 @@ type JwtPayload = {
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
     const { authorization } = req.headers
     if (!authorization) {
-        res.status(401).send({ message: "Não ta pegando o token" })
+        res.sendStatus(401)
         return
     }
 
