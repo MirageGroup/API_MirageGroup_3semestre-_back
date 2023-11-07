@@ -31,6 +31,20 @@ export default class ProcessController{
         }
     }
 
+    public async getProcessById(req: any, res: any){
+        try{
+            const process = await this.processServices.getProcessById(req.params.id)
+            if(!process){
+                res.sendStatus(404)
+            }else{
+                res.status(200).send(process)
+            }
+        }catch(error){
+            console.log(error)
+            res.status(500).send({ message: "Internal server error, please try again", error })
+        }
+    }
+
     public async getAllProcess(req: any, res: any){
         try{
             const response: Array<Process> = await this.processServices.getAllProcess()

@@ -21,6 +21,10 @@ process.get('/findall',async (req,res) => {
     controller.getAllProcess(req, res)
 })
 
+process.get('/:id/fetch', async (req, res) => {
+    controller.getProcessById(req, res)
+})
+
 process.delete('/:id/delete', async (req, res) => {
     controller.softDeleteProcess(req, res)
 })

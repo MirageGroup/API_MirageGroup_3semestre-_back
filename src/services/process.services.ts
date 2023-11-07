@@ -32,7 +32,7 @@ export default class ProcessServices{
             where: { 
                 id: id 
             },
-            relations: ['tasks', 'tasks.evidences']
+            relations: ['tasks', 'tasks.evidences', 'users', 'users.role']
         })
         return process
     }
