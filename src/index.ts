@@ -7,6 +7,7 @@ import { process as processRouter } from './routes/process.router';
 import { user as userRouter } from "./routes/user.router";
 import { task as taskRouter } from "./routes/task.router"
 import { iso as isoRouter } from "./routes/iso.router"
+import { Migration } from "typeorm";
 
 const app = Express()
 require('dotenv').config()
@@ -20,8 +21,9 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 })
 
-appDataSource.initialize().then(() => {
+appDataSource.initialize().then((connection) => {
     console.log("Database initialized succesfully")
+    connection.runMigrations()
     app.listen(process.env.PORT, () => {
         console.log(`Server running on http://localhost:${process.env.PORT}`)
     })
