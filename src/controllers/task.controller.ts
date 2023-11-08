@@ -11,8 +11,8 @@ export default class TaskController{
     public async createTask(req: any, res: any){
         let process = await this.processServices.getProcessById(req.params.process_id)
         if(process === null) return res.sendStatus(404)
-        const { name, description, deadline } = req.body
-        if(name == null || description == null || deadline == null) return res.sendStatus(400)
+        const { name, description, deadline, users } = req.body
+        if(name == null || description == null || deadline == null || users == null) return res.sendStatus(400)
         try{
             process = await this.taskServices.createTask(process, req.body)
             res.status(200).send(process)
