@@ -44,6 +44,16 @@ export default class UserController{
         return res.send(req.user)       
     }
 
+    public async fetchUserProcesses(req: Request, res: Response) {
+        try{
+            const processes = await this.userServices.fetchUserProcesses(req.user.id)
+            return res.status(200).send(processes)
+        }catch(error){
+            console.error(error)
+            return res.status(500).send({ message: "Internal server error, please try again later", error })
+        }
+    }
+
     public async fetchUsers(req: Request, res: Response) {
         const users = await this.userServices.fetchUsers()
         return res.status(200).send(users)

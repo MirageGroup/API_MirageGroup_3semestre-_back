@@ -11,6 +11,7 @@ type JwtPayload = {
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
     const { authorization } = req.headers
     if (!authorization) {
+        console.log('erro')
         res.sendStatus(401)
         return
     }

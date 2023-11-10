@@ -1,11 +1,11 @@
 import { Repository } from 'typeorm';
 import Process from '../infra/entities/process.entity';
 
-export default class ProcessServices{
+export default class ProcessServices {
 
     public constructor(
         private readonly processRepository: Repository<Process>
-    ){}
+    ) {}
 
     public async createProcess(process: Process): Promise<Process> {
         return await this.processRepository.save(process)
@@ -13,14 +13,14 @@ export default class ProcessServices{
 
     public async updateProcessInformations(id: any, updateProcessDto: any): Promise<Process | null> {
         const process = await this.processRepository.findOneBy({ id: id })
-        if(process === null) return process
+        if (process === null) return process
         return await this.processRepository.save({ ...process, ...updateProcessDto })
     }
 
-    public async getAllProcess(): Promise<Array<Process>>{
+    public async getAllProcess(): Promise<Array<Process>> {
         const process = await this.processRepository.find({
             relations: {
-                tasks:true,
+                tasks: true,
                 users: true
             }
         })
@@ -29,8 +29,8 @@ export default class ProcessServices{
 
     public async getProcessById(id: any) {
         const process = await this.processRepository.findOne({
-            where: { 
-                id: id 
+            where: {
+                id: id
             },
             relations: ['tasks', 'tasks.evidences', 'tasks.users', 'users', 'users.role']
         })
@@ -38,12 +38,12 @@ export default class ProcessServices{
     }
 
     public async countProcessById(id: any) {
-        return await this.processRepository.count({where: { id: id }})
+        return await this.processRepository.count({ where: { id: id } })
     }
 
     public async softDeleteProcess(id: any) {
         const process = await this.processRepository.findOneBy({ id: id })
-        if(process === null) return process
+        if (process === null) return process
         await this.processRepository.softDelete(id)
     }
 }

@@ -58,6 +58,16 @@ export default class UserServices {
         }
     }
 
+    public async fetchUserProcesses(id: number | undefined){
+        const user = await this.userRepository.findOne({
+            where: { id: id },
+            relations: ['processes', 'processes.users', 'processes.tasks']
+        })
+        if(user){
+            return user.processes
+        }
+    }
+
     public async fetchUsers(): Promise<Array<User>> {
         return await this.userRepository.createQueryBuilder('user')
             .leftJoinAndSelect('user.role', 'role')
