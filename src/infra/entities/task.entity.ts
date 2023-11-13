@@ -14,6 +14,9 @@ export default class Task {
     @Column()
     description!: string
 
+    @Column()
+    has_evidence!: boolean
+
     @CreateDateColumn()
     created_at!: Date
 
