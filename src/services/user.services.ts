@@ -3,12 +3,57 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 import User from "../infra/entities/user.entity";
 import { user } from '../routes/user.router';
+import * as nodemailer from 'nodemailer';
 
 type JwtPayload = {
     userId: number
 }
 
 export default class UserServices {
+    user: any;
+
+    public async addUserToProjectAndSendEmail(user: User, projectId: number) {
+
+        const transporter = nodemailer.createTransport({
+        });
+
+        const mailOptions = {
+            from: 'ionic@empresa.com',
+            to: user.email,
+            subject: 'Você foi adicionado a um projeto',
+            text: 'Você foi adicionado ao projeto com ID ' + projectId,
+        };
+
+        transporter.sendMail(mailOptions, (error: Error | null, info: { response: string }) => {
+            if (error) {
+                console.log('Erro ao enviar e-mail: ' + error.message);
+            } else {
+                console.log('E-mail enviado: ' + info.response);
+            }
+        });
+        
+    }
+
+    public async sendReminderEmailWhenDueDateApproaches(user: User, projectId: number, dueDate: Date) {
+
+        const transporter = nodemailer.createTransport({
+        });
+
+        const mailOptions = {
+            from: 'ionic@empresa.com',
+            to: user.email,
+            subject: 'Lembrete: Data de término do projeto se aproximando',
+            text: 'A data de término do projeto com ID ' + projectId + ' está se aproximando. Verifique os detalhes.',
+        };
+
+        transporter.sendMail(mailOptions, (error: Error | null, info: { response: string }) => {
+            if (error) {
+                console.log('Erro ao enviar e-mail: ' + error.message);
+            } else {
+                console.log('E-mail enviado: ' + info.response);
+            }
+        });
+    }
 
     public constructor(
         private readonly userRepository: Repository<User>
@@ -82,4 +127,10 @@ export default class UserServices {
             ])
             .getMany()
     }
+    public async updateDateProject(): Promise<any> {
+        // Assuming 'this.user' is supposed to be an asynchronous operation
+        return await this.user;  // Replace this line with the actual logic of your method
+    }
+    
+    
 }
