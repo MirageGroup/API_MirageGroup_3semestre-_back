@@ -45,11 +45,11 @@ export default class Task {
     @JoinTable({
         name: 'task_users_user',
         joinColumn: {
-            name: 'id_task',
+            name: 'id_user',
             referencedColumnName: 'id'
         },
         inverseJoinColumn: {
-            name: 'id_user',
+            name: 'id_task',
             referencedColumnName: 'id'
         }
     })

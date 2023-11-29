@@ -9,12 +9,14 @@ export default class TaskController{
     ){}
 
     public async createTask(req: any, res: any){
+        console.log("REQ BODY", req.body)
         let process = await this.processServices.getProcessById(req.params.process_id)
         if(process === null) return res.sendStatus(404)
-        const { name, description, deadline, users } = req.body
-        if(name == null || description == null || deadline == null || users == null) return res.sendStatus(400)
+        const { name, description, deadline } = req.body
+        if(name == null || description == null || deadline == null) return res.sendStatus(400)
         try{
             process = await this.taskServices.createTask(process, req.body)
+            console.log("criou a task e retornou:", process)
             res.status(200).send(process)
         }catch(error){
             console.log(error)
@@ -23,11 +25,18 @@ export default class TaskController{
     }
 
     public async updateTaskInformations(req: any, res: any){
+        console.log("update: ", req.body)
         if(Object.keys(req.body).length === 0) return res.sendStatus(400)
         const process = await this.processServices.countProcessById(req.params.process_id)
-        if(process == 0) return res.sendStatus(404)
+        if(process == 0){
+            console.log("faltando o processo")
+            return res.sendStatus(404)
+        } 
         let task = await this.taskServices.getTaskById(req.params.task_id)
-        if(task == null) return res.sendStatus(404)
+        if(task == null) {
+            console.log("faltando task")
+            return res.sendStatus(404)
+        } 
         try{
             task = await this.taskServices.updateTaskInformations(task, req.body)
             res.status(200).send(task)    
